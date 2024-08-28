@@ -5,3 +5,7 @@ output "subnet_id" {
 output "ami_id" {
   value = data.aws_ssm_parameter.this.value
 }
+
+output "securityGroup_id" {
+  value = aws_security_group.this.id
+}

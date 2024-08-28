@@ -8,3 +8,5 @@
 # .tfvars files
 *.tfvars
 .terraform.lock.hcl
+loginkey
+loginkey.pub

@@ -36,6 +36,46 @@ resource "aws_route_table_association" "this" {
   subnet_id = aws_subnet.this.id
 }
 
+resource "aws_security_group" "this" {
+  name = "ssh https http security group"
+  vpc_id = aws_vpc.this.id
+
+  ingress {
+    from_port = 22
+    to_port   = 22
+    protocol  = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Allow SSH from anywhere (adjust as needed)
+  }
+
+  ingress {
+    from_port = 8080
+    to_port   = 8080
+    protocol  = "tcp"
+    description = "security group for 8080"
+    cidr_blocks = ["0.0.0.0/0"] # Allow access to port 8080 from anywhere (adjust as needed)
+  }
+  ingress {
+    from_port = 80
+    to_port   = 80
+    protocol  = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Allow access to port 80 from anywhere (adjust as needed)
+  }
+
+  ingress {
+    from_port = 443
+    to_port   = 443
+    protocol  = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Allow access to port 443 from anywhere (adjust as needed)
+  }
+
+  egress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1" # Allow outbound traffic from the security group
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+}
 data "aws_ssm_parameter" "this" {
     name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
 }
