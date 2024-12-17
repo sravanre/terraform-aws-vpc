@@ -8,3 +8,16 @@ section5-demo-aws-s3-remote-storage
 section6-HoL-Terraform-Module
 section7-HoL-TF-DynBlocks-Funcs
 TF-Vault-Provider-Workflow.png
+
+# local .terraform directories
+.terraform/*
+*/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+*/*.tfstate
+*/*.tfstate.*
+
+# .tfvars files
+*.tfvars
