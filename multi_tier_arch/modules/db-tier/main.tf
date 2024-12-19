@@ -1,9 +1,10 @@
 resource "aws_db_instance" "db" {
 #   identifier           = "3tier-db"
+  db_name              = "mydb"
   engine               = "mysql"
   engine_version       = "8.0"
-  instance_class       = "db.t2.micro"
-  allocated_storage    = 20
+  instance_class       = "db.t3.micro"
+  allocated_storage    = 8
 #   name                 = "mydb"
   username             = "admin"
   password             = "changeme1234"
