@@ -4,7 +4,9 @@ resource "aws_instance" "web" {
   instance_type = "t2.micro"
   subnet_id = var.public_subnet_ids[count.index]
   vpc_security_group_ids = [aws_security_group.web.id]
-
+  key_name                = aws_key_pair.web-deployer.key_name  # Add this line
+  associate_public_ip_address = true
+  
   tags = {
     Name = "web-server-${count.index}"
   }
@@ -49,3 +51,9 @@ resource "aws_security_group" "web" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_key_pair" "web-deployer" {
+  key_name   = "web-deploy"
+public_key = file("C:\\Users\\User\\.ssh\\project_key.pub")
+}
+

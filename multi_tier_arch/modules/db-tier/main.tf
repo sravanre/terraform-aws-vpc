@@ -35,6 +35,16 @@ resource "aws_security_group" "db" {
     security_groups  = [var.aws_security_group_app_id]
   }
 
+ # Allow inbound MySQL traffic from your local machine
+  ingress {
+    description = "Allow MySQL from local machine"
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["99.238.154.172/32"]
+  }
+
+
   # Allow all outbound traffic
   egress {
     from_port   = 0

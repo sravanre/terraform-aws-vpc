@@ -4,6 +4,36 @@ resource "aws_vpc" "this" {
   cidr_block = "10.0.0.0/16"
 }
 
+# Internet Gateway
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.this.id
+
+  tags = {
+    Name = "vpcS-igw"
+  }
+}
+# Public Route Table
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.this.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
+
+  tags = {
+    Name = "vpcS-public-route-table"
+  }
+}
+
+# Public Subnet Associations
+resource "aws_route_table_association" "public_subnets" {
+  count          = length(aws_subnet.public)
+  subnet_id      = aws_subnet.public[count.index].id
+  route_table_id = aws_route_table.public.id
+}
+
+
 resource "aws_subnet" "public" {
   count = 2
   vpc_id = aws_vpc.this.id
