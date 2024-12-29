@@ -1,0 +1,1 @@
+### A 3 tier web application which will have a general front end, application end, and a database end , but will follow all the security practices
