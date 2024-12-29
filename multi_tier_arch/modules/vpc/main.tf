@@ -7,6 +7,7 @@ resource "aws_vpc" "this" {
 # Internet Gateway
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.this.id
+  depends_on = [ aws_vpc.this ]
 
   tags = {
     Name = "vpcS-igw"
